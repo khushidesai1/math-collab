@@ -1,20 +1,15 @@
 {
     "dev": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-mathcollab-dev-103614-authRole",
-            "UnauthRoleArn": "arn:aws:iam::726322187639:role/amplify-mathcollab-dev-103614-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::726322187639:role/amplify-mathcollab-dev-103614-authRole",
+            "AuthRoleName": "amplify-mathcollab-dev-133331-authRole",
+            "UnauthRoleArn": "arn:aws:iam::726322187639:role/amplify-mathcollab-dev-133331-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::726322187639:role/amplify-mathcollab-dev-133331-authRole",
             "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-mathcollab-dev-103614-deployment",
-            "UnauthRoleName": "amplify-mathcollab-dev-103614-unauthRole",
-            "StackName": "amplify-mathcollab-dev-103614",
-            "StackId": "arn:aws:cloudformation:us-east-1:726322187639:stack/amplify-mathcollab-dev-103614/2bd1d380-d28b-11ea-bc24-0e80bfdca6c9",
-            "AmplifyAppId": "d3jocq2e264h64"
-        },
-        "categories": {
-            "auth": {
-                "mathcollab43fab8cb": {}
-            }
+            "DeploymentBucketName": "amplify-mathcollab-dev-133331-deployment",
+            "UnauthRoleName": "amplify-mathcollab-dev-133331-unauthRole",
+            "StackName": "amplify-mathcollab-dev-133331",
+            "StackId": "arn:aws:cloudformation:us-east-1:726322187639:stack/amplify-mathcollab-dev-133331/f02e74a0-d2a3-11ea-a08a-0a87c278b5b5",
+            "AmplifyAppId": "d3mfgv0vdggael"
         }
     }
 }

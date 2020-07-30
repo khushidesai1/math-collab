@@ -9,19 +9,12 @@
 						"authenticationType": "API_KEY",
 						"apiKeyConfig": {
 							"apiKeyExpirationDays": 365,
-							"description": "math-collab-api-key"
+							"description": "mathcollab-api-key"
 						}
 					},
 					"additionalAuthenticationProviders": []
 				}
 			}
-		}
-	},
-	"auth": {
-		"mathcollab43fab8cb": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": []
 		}
 	}
 }

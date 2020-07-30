@@ -11,3 +11,6 @@ projects:
         generatedFileName: ''
         docsFilePath: src/graphql
         graphQLApiId: da2-hraqmuaiqjhhpiczy4ugwoqbgq
+extensions:
+  amplify:
+    version: 3
