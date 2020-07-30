@@ -1,0 +1,14 @@
+type User @model {
+  clientId: ID!
+  username: String!
+  notes: [Note!]
+  displayName: String!
+}
+
+type Note {
+	id: ID!
+	clientId: ID!
+	title: String!
+	content: String
+	updatedAt: String
+}

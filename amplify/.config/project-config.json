@@ -1,0 +1,17 @@
+{
+    "projectName": "mathcollab",
+    "version": "3.0",
+    "frontend": "javascript",
+    "javascript": {
+        "framework": "react-native",
+        "config": {
+            "SourceDir": "/Users/khushidesai/math-collab/src",
+            "DistributionDir": "/Users/khushidesai/math-collab",
+            "BuildCommand": "npm run-script build",
+            "StartCommand": "npm run-script start"
+        }
+    },
+    "providers": [
+        "awscloudformation"
+    ]
+}
