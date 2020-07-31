@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Notes from './Notes';
+import Navigation from './Navigation';
 import Note from './Note';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ function App() {
     <Router>
       <div>
         <Switch>
-          <Route exact path="/" component={Notes}></Route>
+          <Route exact path="/" component={Navigation}></Route>
           <Route path="/note/:id/:title?" component={Note} />
         </Switch>
       </div>

@@ -1,12 +1,13 @@
 import React, { useState, useReducer, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify'
-import { updateUser as UpdateUser } from './graphql/mutations';
-import { getUser } from './graphql/queries';
-import { onUpdateUser } from './graphql/subscriptions';
+import { createNote, updateNote as UpdateNote } from './graphql/mutations';
+import { getNote } from './graphql/queries';
+import { onUpdateNote } from './graphql/subscriptions';
 import { v4 as uuidv4 } from 'uuid';
 import MathEditor from './MathEditor';
 import { initialValue, loadingValue } from './noteValues';
+import { useLocation } from 'react-router-dom'
 
 const CLIENTID = uuidv4();
 const loading = JSON.stringify(loadingValue);
@@ -19,9 +20,9 @@ const Note = ({ match: { params } }) => {
         clientId: CLIENTID,
         content: loading,
     }
-    const [user, setUser] = useState(null);
     const [noteState, dispatch] = useReducer(reducer, note);
     const [noteLoaded, setNoteLoaded] = useState(false);
+    const [linkHidden, toggleLinkHidden] = useState(true);
 
     function reducer(state, action) {
         switch (action.type) {
@@ -38,66 +39,40 @@ const Note = ({ match: { params } }) => {
                     clientId: CLIENTID,
                 }
             case 'updateNote':
-                return action.post
+                return action.note
             default:
                 throw new Error();
         }
     }
 
-    function doesContainNote(noteId, notes) {
-        notes.forEach(n => {
-            if (n.id === noteId) {
-                return true;
-            }
-        });
-        return false;
-    }
-
-    function findNote(noteId, notes) {
-        notes.forEach(n => {
-            if (n.id === noteId) {
-                return n;
-            }
-        })
-    }
-
-    async function fetchCurrentUser(userId) {
-        try {
-            const userData = await API.graphql(graphqlOperation(getUser, { id: userId }));
-            setUser(userData.data.getUser);
-        } catch (err) {
-            console.log("user does not exist!");
-        }
-    }
-
     async function createNewNote(note, dispatch) {
-        const notesData = user.notes;
-        if (!doesContainNote(note.id, notesData)) {
+        try {
+            const noteData = await API.graphql(graphqlOperation(createNote, { input: note }));
             dispatch({
                 type: 'updateNote',
                 note: {
-                    ...note,
+                    ...noteData.data.createNote,
                     clientId: CLIENTID
                 }
             })
-        } else {
-            var existingNote = findNote(note.id, notesData);
+        } catch (err) {
+            const existingNoteData = await API.graphql(graphqlOperation(getNote, { id: note.id }));
             dispatch({
                 type: 'updateNote',
                 note: {
-                    ...existingNote,
+                    ...existingNoteData.data.getNote,
                     clientId: CLIENTID
                 }
             })
         }
     }
 
-    async function updateUser(note) {
+    async function updateNote(note) {
         try {
-            await API.graphql(graphqlOperation(UpdateUser, { input: user }));
+            await API.graphql(graphqlOperation(UpdateNote, { input: note }));
         } catch (err) {
-            console.log('error: ', err);
-        }
+            console.log("could not update note: ", err);
+        } 
     }
 
     useEffect(() => {
@@ -121,7 +96,7 @@ const Note = ({ match: { params } }) => {
             title: noteState.title
         }
         if (noteLoaded) {
-            updateUser(newNote);
+            updateNote(newNote, dispatch);
         }
         setNoteLoaded(true);
     }
@@ -138,12 +113,41 @@ const Note = ({ match: { params } }) => {
             createdAt: note.createdAt,
             title: e.target.value,
         }
-        updateUser(newNote);
+        updateNote(newNote, dispatch);
     }
 
     useEffect(() => {
-        const subscriber = API.graphql
+        const subscriber = API.graphql(graphqlOperation(onUpdateNote, {
+            id: note.id
+        })).subscribe({
+            next: data => {
+                var clientId = data.value.data.onUpdateNote.clientId;
+                if (CLIENTID !== clientId) {
+                    const noteFromSub = data.value.data.onUpdateNote;
+                    dispatch({
+                        type: 'updateNote',
+                        note: noteFromSub
+                    })
+                } else {
+                    return;
+                }
+            }
+        });
+        return () => subscriber.unsubscribe();
     }, []);
+
+    return (
+        <div>
+            <input
+            value={noteState.title}
+            onChange={updateNoteTitle}
+            placeholder="Note Title"
+            ></input>
+            <MathEditor value={JSON.parse(noteState.content)} onChange={newValue => updateContent(newValue)} ></MathEditor>
+            <button onClick={() => toggleLinkHidden(!linkHidden)}>{linkHidden ? 'Get shareable link' : 'Hide link'}</button>
+            <div hidden={linkHidden}>{useLocation().pathname}</div>
+        </div>
+    );
 }
 
 export default Note;

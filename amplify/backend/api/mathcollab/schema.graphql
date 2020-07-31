@@ -1,14 +1,8 @@
-type Note {
+type Note @model {
 	id: ID!
 	clientId: ID!
 	title: String!
 	content: String
+	createdAt: String
 	updatedAt: String
-}
-
-type User @model {
-  id: ID!
-  username: String!
-  notes: [Note!]
-  displayName: String!
 }
