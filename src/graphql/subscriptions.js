@@ -4,7 +4,7 @@
 export const onCreateUser = /* GraphQL */ `
   subscription OnCreateUser {
     onCreateUser {
-      clientId
+      id
       username
       notes {
         id
@@ -22,7 +22,7 @@ export const onCreateUser = /* GraphQL */ `
 export const onUpdateUser = /* GraphQL */ `
   subscription OnUpdateUser {
     onUpdateUser {
-      clientId
+      id
       username
       notes {
         id
@@ -40,7 +40,7 @@ export const onUpdateUser = /* GraphQL */ `
 export const onDeleteUser = /* GraphQL */ `
   subscription OnDeleteUser {
     onDeleteUser {
-      clientId
+      id
       username
       notes {
         id

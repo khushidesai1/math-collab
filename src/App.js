@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import Login from './Login';
+import Notes from './Notes';
+import Note from './Note';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
@@ -8,7 +9,8 @@ function App() {
     <Router>
       <div>
         <Switch>
-          <Route exact path="/" component={Login}></Route>
+          <Route exact path="/" component={Notes}></Route>
+          <Route path="/note/:id/:title?" component={Note} />
         </Switch>
       </div>
     </Router>

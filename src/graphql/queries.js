@@ -4,7 +4,7 @@
 export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
-      clientId
+      id
       username
       notes {
         id
@@ -27,7 +27,7 @@ export const listUsers = /* GraphQL */ `
   ) {
     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        clientId
+        id
         username
         notes {
           id
