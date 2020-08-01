@@ -8,6 +8,10 @@ import { v4 as uuidv4 } from 'uuid';
 import MathEditor from './MathEditor';
 import { initialValue, loadingValue } from './noteValues';
 import { useLocation } from 'react-router-dom'
+import NoteTitleTextField from './components/NoteTitleTextField';
+import { Alert } from '@material-ui/lab';
+import { Collapse } from '@material-ui/core';
+import { pastelSilver } from './pastelPurple';
 
 const CLIENTID = uuidv4();
 const loading = JSON.stringify(loadingValue);
@@ -23,6 +27,7 @@ const Note = ({ match: { params } }) => {
     const [noteState, dispatch] = useReducer(reducer, note);
     const [noteLoaded, setNoteLoaded] = useState(false);
     const [linkHidden, toggleLinkHidden] = useState(true);
+    const [saveAlert, setSaveAlert] = useState(true);
 
     function reducer(state, action) {
         switch (action.type) {
@@ -137,13 +142,18 @@ const Note = ({ match: { params } }) => {
     }, []);
 
     return (
-        <div>
-            <input
-            value={noteState.title}
-            onChange={updateNoteTitle}
-            placeholder="Note Title"
-            ></input>
-            <MathEditor value={JSON.parse(noteState.content)} onChange={newValue => updateContent(newValue)} ></MathEditor>
+        <div style={{ paddingLeft: window.innerWidth/12, paddingTop: window.innerWidth/20, backgroundColor: pastelSilver, width: window.innerWidth, height: window.innerHeight }}>
+            <Collapse in={saveAlert}>
+                <Alert onClose={() => setSaveAlert(false)} style={{ width: window.innerWidth/1.26}} severity="info">
+                    This is a temporary note unless you are signed in. The link to this note will be removed 30 days after creation. To save this note, sign in. 
+                </Alert>
+            </Collapse>
+            <p></p>
+            <div style={{ padding: 35, backgroundColor: '#fff', elevation: 3, width: window.innerWidth/1.3, height: window.innerHeight/1.2 }}>
+                <NoteTitleTextField value={noteState.title} onChange={updateNoteTitle} placeholder="Note title"></NoteTitleTextField>
+                <p></p>
+                <MathEditor value={JSON.parse(noteState.content)} onChange={newValue => updateContent(newValue)} ></MathEditor>
+            </div>
             <button onClick={() => toggleLinkHidden(!linkHidden)}>{linkHidden ? 'Get shareable link' : 'Hide link'}</button>
             <div hidden={linkHidden}>{useLocation().pathname}</div>
         </div>
