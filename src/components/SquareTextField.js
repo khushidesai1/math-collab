@@ -3,8 +3,9 @@ import TextField from '@material-ui/core/TextField';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { roundTextFieldStylesHook } from '@mui-treasury/styles/textField/round';
 import { pastelPurple } from '../pastelPurple';
+import '../index.css';
 
-export default function RoundTextField(props) {
+export default function SquareTextField(props) {
 
     const inputBaseStyles = roundTextFieldStylesHook.useInputBase();
     
@@ -20,7 +21,7 @@ export default function RoundTextField(props) {
         <ThemeProvider theme={theme}>
             <TextField
                 {...props}
-                InputProps={{ classes: inputBaseStyles, disableUnderline: true }}
+                InputProps={{ fontFamily: 'Mulish', classes: inputBaseStyles, disableUnderline: true }}
             />
         </ThemeProvider>
     );

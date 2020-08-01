@@ -9,6 +9,7 @@ const NoteTitleTextField = withStyles((theme) => ({
       'label + &': {
         marginTop: 3,
       },
+      width: 'auto',
     },
     input: {
       borderRadius: 4,
@@ -16,7 +17,7 @@ const NoteTitleTextField = withStyles((theme) => ({
       backgroundColor: '#fff',
       border: '1px solid #a891a0',
       fontSize: 30,
-      width: 'auto',
+      width: '500px',
       padding: '5px',
       fontFamily: 'Mulish',
       borderColor: '#fff',

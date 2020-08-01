@@ -47,16 +47,15 @@ const Navigation = (props) => {
                 <p></p>
                 <div className="center-align" style={{ whiteSpace: 'break-spaces', display: 'flex', flexDirection: 'row', flex: 1, width: window.innerHeight }}>
                     <ThemeProvider theme={theme}>
-                        <SquareButton onClick={toggle}>Create new Note</SquareButton>
+                        <SquareButton style={{ fontFamily: 'Mulish' }} onClick={toggle}>Create new Note</SquareButton>
                         <span>            </span>
-                        <SquareTextField onChange={onLinkChange} style={{ width: 300 }} placeholder="Enter Note link"></SquareTextField>
+                        <SquareTextField style={{ fontFamily: 'Mulish' }} onChange={onLinkChange} placeholder="Enter Note link"></SquareTextField>
                         <span>  </span>
                         <Link to={link} style={{ textDecoration: 'none'}}>
-                            <SquareButton>Join Note</SquareButton>
+                            <SquareButton style={{ fontFamily: 'Mulish' }}>Join Note</SquareButton>
                         </Link>
                     </ThemeProvider>
                 </div>
-
             </div>
             <Dialog
             open={isOpen}
@@ -68,10 +67,15 @@ const Navigation = (props) => {
                 }
             }}
             >
-                <DialogTitle>Enter a title for your post:</DialogTitle>
+                <DialogTitle>
+                    <Typography style={{ color: pastelDarkPurple, fontFamily: 'Mulish' }}>
+                    Enter a title for your post:
+                    </Typography>
+                </DialogTitle>
                 <DialogContent>
                     <ThemeProvider theme={theme}>
                         <SquareTextField
+                        style={{ fontFamily: 'Mulish' }}
                         placeholder="Note title"
                         onChange={onChange}
                         input={input}
@@ -82,9 +86,9 @@ const Navigation = (props) => {
                     <div style={{ whiteSpace: 'break-spaces' }}>
                         <p></p>
                         <div style={{ whiteSpace: 'break-spaces', flexDirection: 'row', flex: 1, display: 'flex' }}>
-                            <SquareButton onClick={toggle}>Cancel</SquareButton>
+                            <SquareButton style={{ fontFamily: 'Mulish' }} onClick={toggle}>Cancel</SquareButton>
                             <span>    </span>
-                            <SquareButton onClick={navigate}>Create Note</SquareButton>
+                            <SquareButton style={{ fontFamily: 'Mulish' }} onClick={navigate}>Create Note</SquareButton>
                         </div>
                     </div>
                 </DialogContent>
