@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.center-align {
+  align-items: center;
+  text-align: center;
+  align-self: center;
+  align-content: center;
+}
+
+@font-face {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: normal;
+  src: url('./fonts/Mulish-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 300;
+  src: url('./fonts/Mulish-Light.ttf');
+}

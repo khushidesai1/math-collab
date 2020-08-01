@@ -49,10 +49,17 @@ const MathEditor = (props) => {
               toggleMark(editor, mark)
             }
           }
+          if (event.key === "\\") {
+            handleMathBlock();
+          }
         }}
       />
     </Slate>
   )
+}
+
+const handleMathBlock = () => {
+
 }
 
 const toggleBlock = (editor, format) => {
