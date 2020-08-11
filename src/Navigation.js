@@ -49,7 +49,7 @@ const Navigation = (props) => {
                     <ThemeProvider theme={theme}>
                         <SquareButton style={{ fontFamily: 'Mulish' }} onClick={toggle}>Create new Note</SquareButton>
                         <span>            </span>
-                        <SquareTextField style={{ fontFamily: 'Mulish' }} onChange={onLinkChange} placeholder="Enter Note link"></SquareTextField>
+                        <SquareTextField style={{ fontFamily: 'Mulish', width: window.innerWidth/5 }} onChange={onLinkChange} placeholder="Enter Note link"></SquareTextField>
                         <span>  </span>
                         <Link to={link} style={{ textDecoration: 'none'}}>
                             <SquareButton style={{ fontFamily: 'Mulish' }}>Join Note</SquareButton>

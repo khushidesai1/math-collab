@@ -9,9 +9,10 @@ import MathEditor from './MathEditor';
 import { initialValue, loadingValue } from './noteValues';
 import { useLocation } from 'react-router-dom'
 import NoteTitleTextField from './components/NoteTitleTextField';
+import SquareButton from './components/SquareButton';
 import { Alert } from '@material-ui/lab';
-import { Collapse } from '@material-ui/core';
-import { pastelSilver } from './pastelPurple';
+import { Collapse, Popper, Paper } from '@material-ui/core';
+import { pastelSilver, pastelDarkPurple } from './pastelPurple';
 
 const CLIENTID = uuidv4();
 const loading = JSON.stringify(loadingValue);
@@ -26,7 +27,7 @@ const Note = ({ match: { params } }) => {
     }
     const [noteState, dispatch] = useReducer(reducer, note);
     const [noteLoaded, setNoteLoaded] = useState(false);
-    const [linkHidden, toggleLinkHidden] = useState(true);
+    const [anchor, setAnchor] = useState(null);
     const [saveAlert, setSaveAlert] = useState(true);
 
     function reducer(state, action) {
@@ -150,12 +151,19 @@ const Note = ({ match: { params } }) => {
             </Collapse>
             <p></p>
             <div style={{ padding: 35, backgroundColor: '#fff', elevation: 3, width: window.innerWidth/1.3, height: window.innerHeight/1.2 }}>
-                <NoteTitleTextField value={noteState.title} onChange={updateNoteTitle} placeholder="Note title"></NoteTitleTextField>
+                <div style={{ whiteSpace: 'break-spaces', flex: 4, flexDirection: 'row', display: 'flex' }}>
+                    <NoteTitleTextField value={noteState.title} onChange={updateNoteTitle} placeholder="Note title"></NoteTitleTextField>
+                    <span>                                                                                         </span>
+                    <SquareButton style={{ fontFamily: 'Mulish' }} onClick={(event) => {setAnchor(anchor ? null : event.currentTarget)}}>Get shareable link</SquareButton>
+                    <Popper anchorEl={anchor} open={Boolean(anchor)}>
+                        <Paper elevation={2} style={{ fontFamily: 'Mulish', padding: 10, backgroundColor: '#fff', borderRadius: 0 }}>
+                            {useLocation().pathname}
+                        </Paper>
+                    </Popper>
+                </div>
                 <p></p>
                 <MathEditor value={JSON.parse(noteState.content)} onChange={newValue => updateContent(newValue)} ></MathEditor>
             </div>
-            <button onClick={() => toggleLinkHidden(!linkHidden)}>{linkHidden ? 'Get shareable link' : 'Hide link'}</button>
-            <div hidden={linkHidden}>{useLocation().pathname}</div>
         </div>
     );
 }
